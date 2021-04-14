@@ -1,0 +1,331 @@
+controller:
+{% if controller_name is defined %}
+  name: {{ controller_name }}
+{% else %}
+  kind: controller
+{% endif %}
+{% if controller_image is defined %}
+  image:
+{{ controller_image|indent(4, True) }}
+{% endif %}
+{% if controller_containerPort is defined %}
+  containerPort:
+{{ controller_containerPort|indent(4, True) }}
+{% endif %}
+{% if controller_config is defined and controller_config|length %}
+  config:
+{{ controller_config|indent(4, True) }}
+{% endif %}
+{% if controller_configAnnotations is defined and controller_configAnnotations|length %}
+  configAnnotations:
+{{ controller_configAnnotations|indent(4, True) }}
+{% endif %}
+{% if controller_proxySetHeaders is defined and controller_proxySetHeaders|length %}
+  proxySetHeaders:
+{{ controller_proxySetHeaders|indent(4, True) }}
+{% endif %}
+{% if controller_addHeaders is defined and controller_addHeaders|length %}
+  addHeaders:
+{{ controller_addHeaders|indent(4, True) }}
+{% endif %}
+{% if controller_dnsConfig is defined and controller_dnsConfig|length %}
+  dnsConfig:
+{{ controller_dnsConfig|indent(4, True) }}
+{% endif %}
+{% if controller_dnsPolicy is defined %}
+  dnsPolicy: {{ controller_dnsPolicy }}
+{% endif %}
+{% if controller_reportNodeInternalIp is defined %}
+  reportNodeInternalIp: {{ controller_reportNodeInternalIp }}
+{% endif %}
+{% if controller_hostNetwork is defined %}
+  hostNetwork: {{ controller_hostNetwork }}
+{% endif %}
+{% if controller_hostPort is defined %}
+  hostPort:
+{{ controller_hostPort|indent(4, True) }}
+{% endif %}
+{% if controller_electionID is defined %}
+  electionID: {{ controller_electionID }}
+{% endif %}
+{% if controller_ingressClass is defined %}
+  ingressClass: {{ controller_ingressClass }}
+{% endif %}
+{% if controller_podLabels is defined and controller_podLabels|length %}
+  podLabels:
+{{ controller_podLabels|indent(4, True) }}
+{% endif %}
+{% if controller_podSecurityContext is defined and controller_podSecurityContext|length %}
+  podSecurityContext:
+{{ controller_podSecurityContext|indent(4, True) }}
+{% endif %}
+{% if controller_sysctls is defined and controller_sysctls|length %}
+  sysctls:
+{{ controller_sysctls|indent(4, True) }}
+{% endif %}
+{% if controller_publishService is defined %}
+  publishService:
+{{ controller_publishService|indent(4, True) }}
+{% endif %}
+{% if controller_scope is defined %}
+  scope:
+{{ controller_scope|indent(4, True) }}
+{% endif %}
+{% if controller_configMapNamespace is defined %}
+  configMapNamespace: {{ controller_configMapNamespace }}
+{% endif %}
+{% if controller_tcp is defined %}
+  tcp:
+{{ controller_tcp|indent(4, True) }}
+{% endif %}
+{% if controller_udp is defined %}
+  udp:
+{{ controller_udp|indent(4, True) }}
+{% endif %}
+{% if controller_maxmindLicenseKey is defined %}
+  maxmindLicenseKey: {{ controller_maxmindLicenseKey }}
+{% endif %}
+{% if controller_extraArgs is defined and controller_extraArgs|length %}
+  extraArgs:
+{{ controller_extraArgs|indent(4, True) }}
+{% endif %}
+{% if controller_extraEnvs is defined and controller_extraEnvs|length %}
+  extraEnvs:
+{{ controller_extraEnvs|indent(4, True) }}
+{% endif %}
+{% if controller_kind is defined %}
+  kind: {{ controller_kind }}
+{% endif %}
+{% if controller_annotations is defined and controller_annotations|length %}
+  annotations:
+{{ controller_annotations|indent(4, True) }}
+{% endif %}
+{% if controller_labels is defined and controller_labels|length %}
+  labels:
+{{ controller_labels|indent(4, True) }}
+{% endif %}
+{% if controller_updateStrategy is defined and controller_updateStrategy|length %}
+  updateStrategy:
+{{ controller_updateStrategy|indent(4, True) }}
+{% endif %}
+{% if controller_minReadySeconds is defined %}
+  minReadySeconds: {{ controller_minReadySeconds }}
+{% endif %}
+{% if controller_tolerations is defined and controller_tolerations|length %}
+  tolerations:
+{{ controller_tolerations|indent(4, True) }}
+{% endif %}
+{% if controller_affinity is defined %}
+  affinity:
+{{ controller_affinity|indent(4, True) }}
+{% endif %}
+{% if controller_topologySpreadConstraints is defined and controller_topologySpreadConstraints|length %}
+  topologySpreadConstraints:
+{{ controller_topologySpreadConstraints|indent(4, True) }}
+{% endif %}
+{% if controller_terminationGracePeriodSeconds is defined %}
+  terminationGracePeriodSeconds: {{ controller_terminationGracePeriodSeconds }}
+{% endif %}
+{% if controller_nodeSelector is defined %}
+  nodeSelector:
+{{ controller_nodeSelector|indent(4, True) }}
+{% endif %}
+{% if controller_livenessProbe is defined %}
+  livenessProbe:
+{{ controller_livenessProbe|indent(4, True) }}
+{% endif %}
+{% if controller_readinessProbe is defined %}
+  readinessProbe:
+{{ controller_readinessProbe|indent(4, True) }}
+{% endif %}
+{% if controller_healthCheckPath is defined %}
+  healthCheckPath: {{ controller_healthCheckPath }}
+{% endif %}
+{% if controller_podAnnotations is defined and controller_podAnnotations|length %}
+  podAnnotations:
+{{ controller_podAnnotations|indent(4, True) }}
+{% endif %}
+{% if controller_replicaCount is defined %}
+  replicaCount: {{ controller_replicaCount }}
+{% endif %}
+{% if controller_minAvailable is defined %}
+  minAvailable: {{ controller_minAvailable }}
+{% endif %}
+{% if controller_resources is defined %}
+  resources:
+{{ controller_resources|indent(4, True) }}
+{% endif %}
+{% if controller_autoscaling is defined %}
+  autoscaling:
+{{ controller_autoscaling|indent(4, True) }}
+{% endif %}
+{% if controller_autoscalingTemplate is defined and controller_autoscalingTemplate|length %}
+  autoscalingTemplate:
+{{ controller_autoscalingTemplate|indent(4, True) }}
+{% endif %}
+{% if controller_keda is defined %}
+  keda:
+{{ controller_keda|indent(4, True) }}
+{% endif %}
+{% if controller_enableMimalloc is defined %}
+  enableMimalloc: {{ controller_enableMimalloc }}
+{% endif %}
+{% if controller_customTemplate is defined %}
+  customTemplate:
+{{ controller_customTemplate|indent(4, True) }}
+{% endif %}
+{% if controller_service is defined %}
+  service:
+{{ controller_service|indent(4, True) }}
+{% endif %}
+{% if controller_extraContainers is defined and controller_extraContainers|length %}
+  extraContainers:
+{{ controller_extraContainers|indent(4, True) }}
+{% endif %}
+{% if controller_extraVolumeMounts is defined and controller_extraVolumeMounts|length %}
+  extraVolumeMounts:
+{{ controller_extraVolumeMounts|indent(4, True) }}
+{% endif %}
+{% if controller_extraVolumes is defined and controller_extraVolumes|length %}
+  extraVolumes:
+{{ controller_extraVolumes|indent(4, True) }}
+{% endif %}
+{% if controller_extraInitContainers is defined and controller_extraInitContainers|length %}
+  extraInitContainers:
+{{ controller_extraInitContainers|indent(4, True) }}
+{% endif %}
+{% if controller_admissionWebhooks is defined %}
+  admissionWebhooks:
+{{ controller_admissionWebhooks|indent(4, True) }}
+{% endif %}
+{% if controller_metrics is defined %}
+  metrics:
+{{ controller_metrics|indent(4, True) }}
+{% endif %}
+{% if controller_lifecycle is defined %}
+  lifecycle:
+{{ controller_lifecycle|indent(4, True) }}
+{% endif %}
+{% if controller_priorityClassName is defined %}
+  priorityClassName: {{ controller_priorityClassName }}
+{% endif %}
+{% if revisionHistoryLimit is defined %}
+revisionHistoryLimit: {{ revisionHistoryLimit }}
+{% endif %}
+
+defaultBackend:
+{% if defaultBackend_enabled is defined %}
+  enabled: {{ defaultBackend_enabled }}
+{% endif %}
+{% if defaultBackend_name is defined %}
+  name: {{ defaultBackend_name }}
+{% endif %}
+{% if defaultBackend_image is defined %}
+  image:
+{{ defaultBackend_image|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_extraArgs is defined and defaultBackend_extraArgs|length %}
+  extraArgs:
+{{ defaultBackend_extraArgs|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_serviceAccount is defined %}
+  serviceAccount:
+{{ defaultBackend_serviceAccount|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_extraEnvs is defined and defaultBackend_extraEnvs|length %}
+  extraEnvs:
+{{ defaultBackend_extraEnvs|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_port is defined %}
+  port: {{ defaultBackend_port }}
+{% endif %}
+{% if defaultBackend_livenessProbe is defined %}
+  livenessProbe:
+{{ defaultBackend_livenessProbe|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_readinessProbe is defined %}
+  readinessProbe:
+{{ defaultBackend_readinessProbe|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_tolerations is defined and defaultBackend_tolerations|length %}
+  tolerations:
+{{ defaultBackend_tolerations|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_affinity is defined %}
+  affinity:
+{{ defaultBackend_affinity|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_podSecurityContext is defined and defaultBackend_podSecurityContext|length %}
+  podSecurityContext:
+{{ defaultBackend_podSecurityContext|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_podLabels is defined and defaultBackend_podLabels|length %}
+  podLabels:
+{{ defaultBackend_podLabels|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_nodeSelector is defined %}
+  nodeSelector:
+{{ defaultBackend_nodeSelector|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_podAnnotations is defined and defaultBackend_podAnnotations|length %}
+  podAnnotations:
+{{ defaultBackend_podAnnotations|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_replicaCount is defined %}
+  replicaCount: {{ defaultBackend_replicaCount }}
+{% endif %}
+{% if defaultBackend_minAvailable is defined %}
+  minAvailable: {{ defaultBackend_minAvailable }}
+{% endif %}
+{% if defaultBackend_resources is defined %}
+  resources:
+{{ defaultBackend_resources|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_extraVolumeMounts is defined and defaultBackend_extraVolumeMounts|length %}
+  extraVolumeMounts:
+{{ defaultBackend_extraVolumeMounts|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_extraVolumes is defined and defaultBackend_extraVolumes|length %}
+  extraVolumes:
+{{ defaultBackend_extraVolumes|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_autoscaling is defined %}
+  autoscaling:
+{{ defaultBackend_autoscaling|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_service is defined %}
+  service:
+{{ defaultBackend_service|indent(4, True) }}
+{% endif %}
+{% if defaultBackend_priorityClassName is defined %}
+  priorityClassName: {{ defaultBackend_priorityClassName }}
+{% endif %}
+{% if rbac is defined %}
+rbac:
+{{ rbac|indent(2, True) }}
+{% endif %}
+
+{% if podSecurityPolicy is defined %}
+podSecurityPolicy:
+{{ podSecurityPolicy|indent(2, True) }}
+{% endif %}
+{% if serviceAccount is defined %}
+serviceAccount:
+{{ serviceAccount|indent(2, True) }}
+{% endif %}
+{% if imagePullSecrets is defined and imagePullSecrets|length %}
+imagePullSecrets:
+{{ imagePullSecrets|indent(2, True) }}
+{% endif %}
+{% if tcp is defined and tcp|length %}
+tcp:
+{{ tcp|indent(2, True) }}
+{% endif %}
+{% if udp is defined and udp|length %}
+udp:
+{{ udp|indent(2, True) }}
+{% endif %}
+{% if dhParam is defined and dhParam|length %}
+dhParam:
+{{ dhParam|indent(2, True) }}
+{% endif %}

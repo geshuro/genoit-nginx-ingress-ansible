@@ -1,0 +1,4 @@
+---
+- name: Nginx Ingress was deployed
+  debug:
+    msg: Nginx Ingress was deployed at {{ namespace }}

@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress
+  namespace: cloud-ns
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: front.test-ingress.genoit.int
+    http:
+      paths:
+      - backend:
+          serviceName: apple-service
+          servicePort: 5678
+        path: /apple
+  - host: front.test-ingress.genoit.int
+    http:
+      paths:
+      - backend:
+          serviceName: banana-service
+          servicePort: 5678
+        path: /banana
+  tls:
+  - hosts:
+    - front.test-ingress.genoit.int
+    secretName: nginx-ingress-tls

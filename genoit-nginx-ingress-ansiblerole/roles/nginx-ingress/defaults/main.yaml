@@ -1,0 +1,303 @@
+---
+namespace: ingress-nginx
+nombre_secreto_tls: nginx-ingress-tls
+state: present
+output_path: /tmp/ansible_tasks
+desired_deployment_name: nginx-ingress
+
+#Variable helmchart - inicio
+#Controller - inicio
+controller_name: controller
+controller_image: |
+  repository: k8s.gcr.io/ingress-nginx/controller
+  tag: "v0.44.0"
+  digest: sha256:3dd0fac48073beaca2d67a78c746c7593f9c575168a17139a9955a82c63c4b9a
+  pullPolicy: IfNotPresent
+  runAsUser: 101
+  allowPrivilegeEscalation: true
+controller_containerPort: |
+  http: 80
+  https: 443
+controller_config: {}
+controller_configAnnotations: {}
+controller_proxySetHeaders: {}
+controller_addHeaders: {}
+controller_dnsConfig: {}
+controller_dnsPolicy: ClusterFirst
+controller_reportNodeInternalIp: false
+controller_hostNetwork: false
+controller_hostPort: |
+  enabled: false
+  ports:
+    http: 80
+    https: 443
+controller_electionID: ingress-controller-leader
+controller_ingressClass: nginx
+controller_podLabels: {}
+controller_podSecurityContext: {}
+controller_sysctls: {}
+controller_publishService: |
+  enabled: true
+  pathOverride: ""
+controller_scope: |
+  enabled: false
+  namespace: ""
+controller_configMapNamespace: ""
+controller_tcp: |
+  configMapNamespace: ""
+  annotations: {}
+controller_udp: |
+  configMapNamespace: ""
+  annotations: {}
+controller_maxmindLicenseKey: ""
+controller_extraArgs: {}
+controller_extraEnvs: []
+controller_kind: Deployment
+controller_annotations: {}
+controller_labels: {}
+controller_updateStrategy: {}
+controller_minReadySeconds: 0
+controller_tolerations: []
+controller_affinity: |
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/node-loadbalancer
+          operator: In
+          values:
+          - "true"
+controller_topologySpreadConstraints: []
+controller_terminationGracePeriodSeconds: 300
+controller_nodeSelector: |
+  node-role.kubernetes.io/node-loadbalancer: "true"
+controller_livenessProbe: |
+  failureThreshold: 5
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+  port: 10254
+controller_readinessProbe: |
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+  port: 10254
+controller_healthCheckPath: "/healthz"
+controller_podAnnotations: {}
+controller_replicaCount: 1
+controller_minAvailable: 1
+controller_resources: |
+  requests:
+    cpu: 100m
+    memory: 90Mi
+controller_autoscaling: |
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 11
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 50
+controller_autoscalingTemplate: []
+controller_keda: |
+  apiVersion: "keda.sh/v1alpha1"
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 11
+  pollingInterval: 30
+  cooldownPeriod: 300
+  restoreToOriginalReplicaCount: false
+  scaledObject:
+    annotations: {}
+  triggers: []
+  behavior: {}
+controller_enableMimalloc: true
+controller_customTemplate: |
+  configMapName: ""
+  configMapKey: ""
+controller_service: |
+  enabled: true
+
+  annotations: {}
+  labels: {}
+  externalIPs: []
+
+  loadBalancerSourceRanges: []
+
+  enableHttp: true
+  enableHttps: true
+
+  ports:
+    http: 80
+    https: 443
+
+  targetPorts:
+    http: http
+    https: https
+
+  type: LoadBalancer
+
+  # type: NodePort
+  # nodePorts:
+  #   http: 32080
+  #   https: 32443
+  #   tcp:
+  #     8080: 32808
+  nodePorts:
+    http: ""
+    https: ""
+    tcp: {}
+    udp: {}
+
+  internal:
+    enabled: false
+    annotations: {}
+    loadBalancerSourceRanges: []
+controller_extraContainers: []
+controller_extraVolumeMounts: []
+controller_extraVolumes: []
+controller_extraInitContainers: []
+controller_admissionWebhooks: |
+  annotations: {}
+  enabled: true
+  failurePolicy: Fail
+  port: 8443
+  certificate: "/usr/local/certificates/cert"
+  key: "/usr/local/certificates/key"
+  namespaceSelector: {}
+  objectSelector: {}
+
+  service:
+    annotations: {}
+    externalIPs: []
+    loadBalancerSourceRanges: []
+    servicePort: 443
+    type: ClusterIP
+
+  patch:
+    enabled: true
+    image:
+      repository: docker.io/jettech/kube-webhook-certgen
+      tag: v1.5.1
+      pullPolicy: IfNotPresent
+    priorityClassName: ""
+    podAnnotations: {}
+    nodeSelector: {}
+    tolerations: []
+    runAsUser: 2000
+controller_metrics: |
+  port: 10254
+  enabled: false
+  service:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "10254"
+    externalIPs: []
+    loadBalancerSourceRanges: []
+    servicePort: 9913
+    type: ClusterIP
+  serviceMonitor:
+    enabled: false
+    additionalLabels: {}
+    namespace: ""
+    namespaceSelector: {}
+    scrapeInterval: 30s
+    targetLabels: []
+    metricRelabelings: []
+  prometheusRule:
+    enabled: false
+    additionalLabels: {}
+    rules: []
+controller_lifecycle: |
+  preStop:
+    exec:
+      command:
+        - /wait-shutdown
+controller_priorityClassName: ""
+#Controller - fin
+
+#Rollback limit
+revisionHistoryLimit: 10
+
+#Default 404 backend - inicio
+defaultBackend_enabled: false
+defaultBackend_name: defaultbackend
+defaultBackend_image: |
+  repository: k8s.gcr.io/defaultbackend-amd64
+  tag: "1.5"
+  pullPolicy: IfNotPresent
+  # nobody user -> uid 65534
+  runAsUser: 65534
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+defaultBackend_extraArgs: {}
+defaultBackend_serviceAccount: |
+  create: true
+  name: ""
+  automountServiceAccountToken: true
+defaultBackend_extraEnvs: []
+defaultBackend_port: 8080
+defaultBackend_livenessProbe: |
+  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 5
+defaultBackend_readinessProbe: |
+  failureThreshold: 6
+  initialDelaySeconds: 0
+  periodSeconds: 5
+  successThreshold: 1
+  timeoutSeconds: 5
+defaultBackend_tolerations: []
+defaultBackend_affinity: |
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/node-loadbalancer
+          operator: In
+          values:
+          - "true"
+defaultBackend_podSecurityContext: {}
+defaultBackend_podLabels: {}
+defaultBackend_nodeSelector: |
+  node-role.kubernetes.io/node-loadbalancer: "true"
+defaultBackend_podAnnotations: {}
+defaultBackend_replicaCount: 1
+defaultBackend_minAvailable: 1
+defaultBackend_resources: {}
+defaultBackend_extraVolumeMounts: []
+defaultBackend_extraVolumes: []
+defaultBackend_autoscaling: |
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 50
+  targetMemoryUtilizationPercentage: 50
+defaultBackend_service: |
+  annotations: {}
+  externalIPs: []
+  loadBalancerSourceRanges: []
+  servicePort: 80
+  type: ClusterIP
+defaultBackend_priorityClassName: ""
+#Default 404 backend - fin
+
+
+rbac: |
+  create: true
+  scope: false
+podSecurityPolicy: |
+  enabled: false
+serviceAccount: |
+  create: true
+  name: ""
+  automountServiceAccountToken: true
+imagePullSecrets: []
+tcp: {}
+udp: {}
+dhParam: ""
+#Variable helmchart - fin

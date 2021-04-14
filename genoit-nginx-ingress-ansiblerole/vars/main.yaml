@@ -1,0 +1,69 @@
+---
+namespace: ingress-nginx
+nombre_secreto_tls: nginx-ingress-tls
+state: present
+tls_cert_path: "{{ playbook_dir }}/files/ca-cert.pem"
+tls_key_path: "{{ playbook_dir }}/files/ca-key.pem"
+instalar_enabled: true
+helmchart_path: "{{ playbook_dir }}/helmchart/genoit-nginx-ingress-helmchart/"
+output_path: /tmp/ansible_tasks
+desired_deployment_name: nginx-ingress
+
+controller_name: controller
+controller_kind: DaemonSet
+controller_image: |
+  repository: k8s.gcr.io/ingress-nginx/controller
+  tag: "v0.44.0"
+  digest: sha256:3dd0fac48073beaca2d67a78c746c7593f9c575168a17139a9955a82c63c4b9a
+  pullPolicy: IfNotPresent
+  runAsUser: 101
+  allowPrivilegeEscalation: true
+controller_affinity: |
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/node-loadbalancer
+          operator: In
+          values:
+          - "true"
+controller_nodeSelector: |
+  node-role.kubernetes.io/node-loadbalancer: "true"
+controller_service: |
+  enabled: true
+  annotations: {}
+  labels: {}
+  externalIPs: []
+  loadBalancerSourceRanges: []
+  enableHttp: true
+  enableHttps: true
+  ports:
+    http: 80
+    https: 443
+  targetPorts:
+    http: http
+    https: https
+  type: NodePort
+  nodePorts:
+    http: "30080"
+    https: "30443"
+    tcp: {}
+    udp: {}
+  internal:
+    enabled: false
+    annotations: {}
+    loadBalancerSourceRanges: []
+controller_extraArgs: |
+  default-ssl-certificate: "{{ namespace}}/{{ nombre_secreto_tls }}"
+  enable-ssl-passthrough: true
+
+defaultBackend_enabled: true
+defaultBackend_name: defaultbackend
+defaultBackend_image: |
+  repository: k8s.gcr.io/defaultbackend-amd64
+  tag: "1.5"
+  pullPolicy: IfNotPresent
+  runAsUser: 65534
+  runAsNonRoot: true
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
